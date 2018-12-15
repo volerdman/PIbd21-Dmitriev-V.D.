@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fifth_Laba", "First_Laba\Fifth_Laba.csproj", "{9AD252BA-EE9A-4229-81CD-7DC9031934EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sixth_Laba", "First_Laba\Sixth_Laba.csproj", "{9AD252BA-EE9A-4229-81CD-7DC9031934EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

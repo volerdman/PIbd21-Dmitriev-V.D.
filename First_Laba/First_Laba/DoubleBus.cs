@@ -47,6 +47,20 @@ namespace First_Laba
             BlackWindow = blackWindow;
         }
 
+        public DoubleBus(string info) : base(info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 6)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                SecondFloor = Convert.ToBoolean(strs[4]);
+                BlackWindow = Convert.ToBoolean(strs[5]);
+            }
+        }
+
         public override void MoveTransport(Direction direction)
         {
             float step = MaxSpeed * 100 / Weight;
@@ -105,7 +119,6 @@ namespace First_Laba
                 g.DrawRectangle(pen, _startPosX + 25, _startPosY + 10, 10, 10);
                 g.DrawRectangle(pen, _startPosX + 45, _startPosY + 10, 10, 10);
                 g.DrawRectangle(pen, _startPosX + 65, _startPosY + 10, 10, 10);
-
             }
 
             //отрисуем основной кузов
@@ -137,6 +150,12 @@ namespace First_Laba
         public void SetDopColor(Color color)
         {
             DopColor = color;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + ";" + DopColor.Name + ";" + SecondFloor + ";" +
+           BlackWindow;
         }
     }
 }
