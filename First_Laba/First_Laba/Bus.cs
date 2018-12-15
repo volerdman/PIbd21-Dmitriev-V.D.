@@ -25,9 +25,6 @@ namespace First_Laba
         /// <param name="maxSpeed">Максимальная скорость</param>
         /// <param name="weight">Вес автомобиля</param>
         /// <param name="mainColor">Основной цвет кузова</param>
-        /// <param name="dopColor">Дополнительный цвет</param>
-        /// <param name="SecondFloor">Признак наличия второго этажа</param>
-        /// <param name="BlackWindow">Признак наличия тонировки</param>
         public Bus(int maxSpeed, float weight, Color mainColor)
         {
             MaxSpeed = maxSpeed;

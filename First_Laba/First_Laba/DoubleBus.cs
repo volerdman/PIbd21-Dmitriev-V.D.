@@ -130,5 +130,13 @@ namespace First_Laba
                 g.FillRectangle(black, _startPosX + 68, _startPosY + 25, 12, 12);
             }
         }
+
+        /// Смена дополнительного цвета
+        /// </summary>
+        /// <param name="color"></param>
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+        }
     }
 }

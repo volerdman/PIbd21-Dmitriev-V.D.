@@ -54,6 +54,12 @@
     <Compile Include="FormBus.Designer.cs">
       <DependentUpon>FormBus.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormBusConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBusConfig.Designer.cs">
+      <DependentUpon>FormBusConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormBusStation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     <Compile Include="PublicTransport.cs" />
     <EmbeddedResource Include="FormBus.resx">
       <DependentUpon>FormBus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBusConfig.resx">
+      <DependentUpon>FormBusConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormBusStation.resx">
       <DependentUpon>FormBusStation.cs</DependentUpon>
