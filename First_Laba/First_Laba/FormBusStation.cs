@@ -13,16 +13,26 @@ namespace First_Laba
     public partial class FormBusStation : Form
     {
         /// <summary>
-        /// Объект от класса-автовокзала
+        /// Объект от класса многоуровневой парковки
         /// </summary>
-        BusStation<ITransport> station;
+        MultiLevelBusStation station;
+
+        /// <summary>
+        /// Количество уровней-парковок
+        /// </summary>
+        private const int countLevel = 5;
 
         public FormBusStation()
         {
             InitializeComponent();
-            station = new BusStation<ITransport>(20, pictureBoxStation.Width,
-           pictureBoxStation.Height);
-            Draw();
+            station = new MultiLevelBusStation(countLevel, pictureBoxStation.Width,
+            pictureBoxStation.Height);
+            //заполнение listBox
+            for (int i = 0; i < countLevel; i++)
+            {
+                listBoxLevels.Items.Add("Уровень " + (i + 1));
+            }
+            listBoxLevels.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -32,7 +42,7 @@ namespace First_Laba
         {
             Bitmap bmp = new Bitmap(pictureBoxStation.Width, pictureBoxStation.Height);
             Graphics gr = Graphics.FromImage(bmp);
-            station.Draw(gr);
+            station[listBoxLevels.SelectedIndex].Draw(gr);
             pictureBoxStation.Image = bmp;
         }
 
@@ -43,12 +53,20 @@ namespace First_Laba
         /// <param name="e"></param>
         private void buttonSetBus_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                var bus = new Bus(100, 1000, dialog.Color);
-                int place = station + bus;
-                Draw();
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var bus = new Bus(100, 1000, dialog.Color);
+                    int place = station[listBoxLevels.SelectedIndex] + bus;
+                    if (place == -1)
+                    {
+                        MessageBox.Show("Нет свободных мест", "Ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    Draw();
+                }
             }
         }
 
@@ -59,15 +77,24 @@ namespace First_Laba
         /// <param name="e"></param>
         private void buttonSetDoubleBus_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                ColorDialog dialogDop = new ColorDialog();
-                if (dialogDop.ShowDialog() == DialogResult.OK)
+                ColorDialog dialog = new ColorDialog();
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    var bus = new DoubleBus(100, 1000, dialog.Color, dialogDop.Color, true, true);
-                    int place = station + bus;
-                    Draw();
+                    ColorDialog dialogDop = new ColorDialog();
+                    if (dialogDop.ShowDialog() == DialogResult.OK)
+                    {
+                        var bus = new DoubleBus(100, 1000, dialog.Color, dialogDop.Color,
+                        true, true);
+                        int place = station[listBoxLevels.SelectedIndex] + bus;
+                        if (place == -1)
+                        {
+                            MessageBox.Show("Нет свободных мест", "Ошибка",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        Draw();
+                    }
                 }
             }
         }
@@ -79,27 +106,41 @@ namespace First_Laba
         /// <param name="e"></param>
         private void buttonTakeBus_Click(object sender, EventArgs e)
         {
-            if (maskedTextBox.Text != "")
+            if (listBoxLevels.SelectedIndex > -1)
             {
-                var bus = station - (Convert.ToInt32(maskedTextBox.Text) - 1);
-                if (bus != null)
+                if (maskedTextBox.Text != "")
                 {
-                    Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
-                   pictureBoxTakeBus.Height);
-                    Graphics gr = Graphics.FromImage(bmp);
-                    bus.SetPosition(30, 30, pictureBoxTakeBus.Width,
-                   pictureBoxTakeBus.Height);
-                    bus.DrawBus(gr);
-                    pictureBoxTakeBus.Image = bmp;
+                    var bus = station[listBoxLevels.SelectedIndex] -
+                   Convert.ToInt32(maskedTextBox.Text);
+                    if (bus != null)
+                    {
+                        Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
+                       pictureBoxTakeBus.Height);
+                        Graphics gr = Graphics.FromImage(bmp);
+                        bus.SetPosition(5, 5, pictureBoxTakeBus.Width,
+                       pictureBoxTakeBus.Height);
+                        bus.DrawBus(gr);
+                        pictureBoxTakeBus.Image = bmp;
+                    }
+                    else
+                    {
+                        Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
+                       pictureBoxTakeBus.Height);
+                        pictureBoxTakeBus.Image = bmp;
+                    }
+                    Draw();
                 }
-                else
-                {
-                    Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
-                   pictureBoxTakeBus.Height);
-                    pictureBoxTakeBus.Image = bmp;
-                }
-                Draw();
             }
+        }
+
+        /// <summary>
+        /// Метод обработки выбора элемента на listBoxLevels
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listBoxLevels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw();
         }
     }
 }

@@ -61,6 +61,7 @@
       <DependentUpon>FormBusStation.cs</DependentUpon>
     </Compile>
     <Compile Include="ITransport.cs" />
+    <Compile Include="MultiLevelBusStation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicTransport.cs" />
