@@ -52,10 +52,13 @@ namespace First_Laba
         /// </summary>
         private void Draw()
         {
-            Bitmap bmp = new Bitmap(pictureBoxStation.Width, pictureBoxStation.Height);
-            Graphics gr = Graphics.FromImage(bmp);
-            station[listBoxLevels.SelectedIndex].Draw(gr);
-            pictureBoxStation.Image = bmp;
+            if (listBoxLevels.SelectedIndex > -1)
+            {
+                Bitmap bmp = new Bitmap(pictureBoxStation.Width, pictureBoxStation.Height);
+                Graphics gr = Graphics.FromImage(bmp);
+                station[listBoxLevels.SelectedIndex].Draw(gr);
+                pictureBoxStation.Image = bmp;
+            }
         }
 
         /// <summary>
@@ -88,6 +91,11 @@ namespace First_Laba
                 catch (StationOverflowException ex)
                 {
                     MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+                catch (StationAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
@@ -203,6 +211,18 @@ namespace First_Laba
                 }
                 Draw();
             }
+        }
+
+        /// <summary>
+        /// Обработка нажатия кнопки "Сортировка"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            station.Sort();
+            Draw();
+            logger.Info("Сортировка уровней");
         }
     }
 }

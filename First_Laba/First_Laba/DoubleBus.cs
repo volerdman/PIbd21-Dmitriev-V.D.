@@ -15,7 +15,7 @@ namespace First_Laba
         Right
     }
 
-    public class DoubleBus : Bus
+    public class DoubleBus : Bus, IComparable<DoubleBus>, IEquatable<DoubleBus>
     {
         /// <summary>
         /// Дополнительный цвет
@@ -156,6 +156,93 @@ namespace First_Laba
         {
             return base.ToString() + ";" + DopColor.Name + ";" + SecondFloor + ";" +
            BlackWindow;
+        }
+        /// <summary>
+        /// Метод интерфейса IComparable для класса DoubleBus
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int CompareTo(DoubleBus other)
+        {
+            var res = (this is Bus).CompareTo(other is Bus);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (DopColor != other.DopColor)
+            {
+                DopColor.Name.CompareTo(other.DopColor.Name);
+            }
+            if (SecondFloor != other.SecondFloor)
+            {
+                return SecondFloor.CompareTo(other.SecondFloor);
+            }
+            if (BlackWindow != other.BlackWindow)
+            {
+                return BlackWindow.CompareTo(other.BlackWindow);
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEquatable для класса DoubleBus
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(DoubleBus other)
+        {
+            var res = (this as Bus).Equals(other as Bus);
+            if (!res)
+            {
+                return res;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (SecondFloor != other.SecondFloor)
+            {
+                return false;
+            }
+            if (BlackWindow != other.BlackWindow)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            DoubleBus busObj = obj as DoubleBus;
+            if (busObj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(busObj);
+            }
+        }
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
