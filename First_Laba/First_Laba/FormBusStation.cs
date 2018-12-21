@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,9 +28,15 @@ namespace First_Laba
         /// </summary>
         private const int countLevel = 5;
 
+        /// <summary>
+        /// Логгер
+        /// </summary>
+        private Logger logger;
         public FormBusStation()
         {
             InitializeComponent();
+
+            logger = LogManager.GetCurrentClassLogger();
             station = new MultiLevelBusStation(countLevel, pictureBoxStation.Width,
             pictureBoxStation.Height);
             //заполнение listBox
@@ -71,14 +78,22 @@ namespace First_Laba
         {
             if (bus != null && listBoxLevels.SelectedIndex > -1)
             {
-                int place = station[listBoxLevels.SelectedIndex] + bus;
-                if (place > -1)
+                try
                 {
+                    int place = station[listBoxLevels.SelectedIndex] + bus;
+                    logger.Info("Добавлен автобус " + bus.ToString() + " на место " +
+                   place);
                     Draw();
                 }
-                else
+                catch (StationOverflowException ex)
                 {
-                    MessageBox.Show("Автобус не удалось поставить");
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -94,10 +109,10 @@ namespace First_Laba
             {
                 if (maskedTextBox.Text != "")
                 {
-                    var bus = station[listBoxLevels.SelectedIndex] -
-                   Convert.ToInt32(maskedTextBox.Text);
-                    if (bus != null)
+                    try
                     {
+                        var bus = station[listBoxLevels.SelectedIndex] -
+                       Convert.ToInt32(maskedTextBox.Text);
                         Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
                        pictureBoxTakeBus.Height);
                         Graphics gr = Graphics.FromImage(bmp);
@@ -105,14 +120,23 @@ namespace First_Laba
                        pictureBoxTakeBus.Height);
                         bus.DrawBus(gr);
                         pictureBoxTakeBus.Image = bmp;
+
+                        logger.Info("Изъят автобус " + bus.ToString() + " с места " +
+                       maskedTextBox.Text);
+                        Draw();
                     }
-                    else
+                    catch (StationNotFoundException ex)
                     {
+                        MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK,
+                       MessageBoxIcon.Error);
                         Bitmap bmp = new Bitmap(pictureBoxTakeBus.Width,
                        pictureBoxTakeBus.Height);
-                        pictureBoxTakeBus.Image = bmp;
                     }
-                    Draw();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -134,19 +158,21 @@ namespace First_Laba
         /// <param name="e"></param>
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (station.SaveData(saveFileDialog.FileName))
+                try
                 {
+                    station.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат",
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }          
         }
 
         /// <summary>
@@ -158,15 +184,22 @@ namespace First_Laba
         {
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (station.LoadData(openFileDialog.FileName))
+                try
                 {
+                    station.LoadData(openFileDialog.FileName);
                     MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
+                    MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                 }
-                else
+                catch (StationOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Draw();
             }

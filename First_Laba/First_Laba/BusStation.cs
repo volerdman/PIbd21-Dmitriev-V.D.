@@ -62,13 +62,13 @@ namespace First_Laba
         /// Логика действия: на парковку добавляется автобус
         /// </summary>
         /// <param name="p">Парковка</param>
-        /// <param name="car">Добавляемый автобус</param>
+        /// <param name="bus">Добавляемый автобус</param>
         /// <returns></returns>
         public static int operator +(BusStation<T> b, T bus)
         {
             if (b._places.Count == b._maxCount)
             {
-                return -1;
+                throw new StationOverflowException();
             }
             for (int i = 0; i < b._maxCount; i++)
             {
@@ -99,7 +99,7 @@ namespace First_Laba
                 b._places.Remove(index);
                 return bus;
             }
-            return null;
+            throw new StationNotFoundException(index);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace First_Laba
                 {
                     return _places[ind];
                 }
-                return null;
+                throw new StationNotFoundException(ind);
             }
             set
             {
@@ -170,7 +170,11 @@ namespace First_Laba
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5 *
                     _placeSizeHeight + 15, PictureWidth, PictureHeight);
                 }
+                else
+                {
+                    throw new StationOccupiedPlaceException(ind);
+                }
             }
         }
     }
-}
+}
