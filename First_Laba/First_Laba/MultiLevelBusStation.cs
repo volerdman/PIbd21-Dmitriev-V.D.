@@ -75,33 +75,30 @@ namespace First_Laba
             }
             using (FileStream fs = new FileStream(filename, FileMode.Create))
             {
-                using (BufferedStream bs = new BufferedStream(fs))
+                //Записываем количество уровней
+                WriteToFile("CountLeveles:" + stationStages.Count +
+               Environment.NewLine, fs);
+                foreach (var level in stationStages)
                 {
-                    //Записываем количество уровней
-                    WriteToFile("CountLeveles:" + stationStages.Count +
-                   Environment.NewLine, fs);
-                    foreach (var level in stationStages)
+                    //Начинаем уровень
+                    WriteToFile("Level" + Environment.NewLine, fs);
+                    for (int i = 0; i < countPlaces; i++)
                     {
-                        //Начинаем уровень
-                        WriteToFile("Level" + Environment.NewLine, fs);
-                        for (int i = 0; i < countPlaces; i++)
+                        var bus = level[i];
+                        if (bus != null)
                         {
-                            var bus = level[i];
-                            if (bus != null)
+                            //если место не пустое
+                            //Записываем тип мшаины
+                            if (bus.GetType().Name == "Bus")
                             {
-                                //если место не пустое
-                                //Записываем тип мшаины
-                                if (bus.GetType().Name == "Bus")
-                                {
-                                    WriteToFile(i + ":Bus:", fs);
-                                }
-                                if (bus.GetType().Name == "DoubleBus")
-                                {
-                                    WriteToFile(i + ":DoubleBus:", fs);
-                                }
-                                //Записываемые параметры
-                                WriteToFile(bus + Environment.NewLine, fs);
+                                WriteToFile(i + ":Bus:", fs);
                             }
+                            if (bus.GetType().Name == "DoubleBus")
+                            {
+                                WriteToFile(i + ":DoubleBus:", fs);
+                            }
+                            //Записываемые параметры
+                            WriteToFile(bus + Environment.NewLine, fs);
                         }
                     }
                 }
