@@ -10,6 +10,24 @@ namespace First_Laba
     public class Bus:PublicTransport
     {
         /// <summary>
+        /// Левая координата отрисовки автобуса
+        /// </summary>
+        private float _startPosX;
+
+        /// <summary>
+        /// Правая координата отрисовки автобуса
+        /// </summary>
+        private float _startPosY;
+
+        /// <summary>
+        /// Ширина окна отрисовки
+        /// </summary>
+        private int _pictureWidth;
+
+        //Высота окна отрисовки
+        private int _pictureHeight;
+        
+        /// <summary>
         /// Ширина отрисовки автобуса
         /// </summary>
         protected const int busWidth = 85;
