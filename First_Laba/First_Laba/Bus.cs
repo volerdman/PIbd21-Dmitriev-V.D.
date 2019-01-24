@@ -7,15 +7,6 @@ using System.Threading.Tasks;
 
 namespace First_Laba
 {
-    public enum Direction
-    {
-        Up,
-        Diagonal,
-        Down,
-        Left,
-        Right
-    }
-
     public class Bus
     {
         /// <summary>
