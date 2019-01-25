@@ -82,31 +82,19 @@ namespace First_Laba
                 {
                     //Начинаем уровень
                     WriteToFile("Level" + Environment.NewLine, fs);
-                    for (int i = 0; i < countPlaces; i++)
+                    foreach (ITransport bus in level)
                     {
-                        try
+                        //Записываем тип мшаины
+                        if (bus.GetType().Name == "Bus")
                         {
-                            var bus = level[i];
-                            if (bus != null)
-                            {
-                                //Записываем тип мшаины
-                                if (bus.GetType().Name == "Bus")
-                                {
-                                    WriteToFile(i + ":Bus:", fs);
-                                }
-                                if (bus.GetType().Name == "DoubleBus")
-                                {
-                                    WriteToFile(i + ":DoubleBus:", fs);
-                                }
-                                //Записываемые параметры
-                                WriteToFile(bus + Environment.NewLine, fs);
-                            }   
+                            WriteToFile(level.GetKey + ":Bus:", fs);
                         }
-                        catch (Exception ex)
+                        if (bus.GetType().Name == "DoubleBus")
                         {
-
+                            WriteToFile(level.GetKey + ":DoubleBus:", fs);
                         }
-                        finally { }
+                        //Записываемые параметры
+                        WriteToFile(bus + Environment.NewLine, fs);
                     }
                 }
             }
@@ -136,14 +124,11 @@ namespace First_Laba
             string bufferTextFromFile = "";
             using (FileStream fs = new FileStream(filename, FileMode.Open))
             {
-                using (BufferedStream bs = new BufferedStream(fs))
+                byte[] b = new byte[fs.Length];
+                UTF8Encoding temp = new UTF8Encoding(true);
+                while (fs.Read(b, 0, b.Length) > 0)
                 {
-                    byte[] b = new byte[fs.Length];
-                    UTF8Encoding temp = new UTF8Encoding(true);
-                    while (bs.Read(b, 0, b.Length) > 0)
-                    {
-                        bufferTextFromFile += temp.GetString(b);
-                    }
+                    bufferTextFromFile += temp.GetString(b);
                 }
             }
             bufferTextFromFile = bufferTextFromFile.Replace("\r", "");
@@ -164,6 +149,7 @@ namespace First_Laba
                 throw new Exception("Неверный формат файла");
             }
             int counter = -1;
+            int counterBus = 0;
             ITransport bus = null;
             for (int i = 1; i < strs.Length; ++i)
             {
@@ -172,6 +158,7 @@ namespace First_Laba
                 {
                     //начинаем новый уровень
                     counter++;
+                    counterBus = 0;
                     stationStages.Add(new BusStation<ITransport>(countPlaces, pictureWidth,
                     pictureHeight));
                     continue;
@@ -186,10 +173,18 @@ namespace First_Laba
                 }
                 else if (strs[i].Split(':')[1] == "DoubleBus")
                 {
-                    bus = new DoubleBus(strs[i].Split(':')[2]);
+                    bus = new DoubleBus( strs[i].Split(':')[2]);
                 }
-                stationStages[counter][Convert.ToInt32(strs[i].Split(':')[0])] = bus;
+                stationStages[counter][counterBus++] = bus;
             }
+        }
+
+        /// <summary>
+        /// Сортировка уровней
+        /// </summary>
+        public void Sort()
+        {
+            stationStages.Sort();
         }
     }
 }
