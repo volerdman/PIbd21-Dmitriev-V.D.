@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bus.cs" />
+    <Compile Include="BusStation.cs" />
     <Compile Include="DoubleBus.cs" />
     <Compile Include="FormBus.cs">
       <SubType>Form</SubType>
@@ -53,12 +54,21 @@
     <Compile Include="FormBus.Designer.cs">
       <DependentUpon>FormBus.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormBusStation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBusStation.Designer.cs">
+      <DependentUpon>FormBusStation.cs</DependentUpon>
+    </Compile>
     <Compile Include="ITransport.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicTransport.cs" />
     <EmbeddedResource Include="FormBus.resx">
       <DependentUpon>FormBus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBusStation.resx">
+      <DependentUpon>FormBusStation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

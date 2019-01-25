@@ -16,7 +16,7 @@ namespace First_Laba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormBus());
+            Application.Run(new FormBusStation());
         }
     }
 }

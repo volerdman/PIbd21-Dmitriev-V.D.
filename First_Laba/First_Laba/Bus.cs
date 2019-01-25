@@ -102,7 +102,7 @@ namespace First_Laba
         {
             Pen pen = new Pen(Color.Black);
             Brush br = new SolidBrush(MainColor);
-            Brush back = new SolidBrush(Color.Silver);
+            Brush back = new SolidBrush(Color.Gray);
             Brush black = new SolidBrush(Color.Black);
             Brush blue = new SolidBrush(Color.Blue);
 
