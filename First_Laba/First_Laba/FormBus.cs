@@ -12,7 +12,7 @@ namespace First_Laba
 {
     public partial class FormBus : Form
     {
-        private Bus bus;
+        private ITransport bus;
 
         /// <summary>
         /// Конструктор
@@ -36,8 +36,7 @@ namespace First_Laba
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            bus = new Bus(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Red,
-                Color.Black, true, true);
+            bus = new Bus(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Red);
             bus.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxBus.Width,
                 pictureBoxBus.Height);
             Draw();
@@ -66,10 +65,16 @@ namespace First_Laba
                 case "buttonRight":
                     bus.MoveTransport(Direction.Right);
                     break;
-                case "Diagonal":
-                    bus.MoveTransport(Direction.Diagonal);
-                    break;
             }
+            Draw();
+        }
+
+        private void buttonCreateDoubleBus_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            bus = new DoubleBus(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Red, Color.Blue, true, true);
+            bus.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxBus.Width,
+           pictureBoxBus.Height);
             Draw();
         }
     }

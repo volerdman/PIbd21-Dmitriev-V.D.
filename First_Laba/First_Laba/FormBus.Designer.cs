@@ -34,6 +34,7 @@
             this.buttonLeft = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
+            this.buttonCreateDoubleBus = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBus)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,9 +42,9 @@
             // 
             this.buttonCreate.Location = new System.Drawing.Point(12, 12);
             this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(75, 23);
+            this.buttonCreate.Size = new System.Drawing.Size(112, 23);
             this.buttonCreate.TabIndex = 0;
-            this.buttonCreate.Text = "Создать";
+            this.buttonCreate.Text = "Обычный автобус";
             this.buttonCreate.UseVisualStyleBackColor = true;
             this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
             // 
@@ -100,11 +101,22 @@
             this.buttonRight.UseVisualStyleBackColor = true;
             this.buttonRight.Click += new System.EventHandler(this.buttonMove_Click);
             // 
+            // buttonCreateDoubleBus
+            // 
+            this.buttonCreateDoubleBus.Location = new System.Drawing.Point(152, 12);
+            this.buttonCreateDoubleBus.Name = "buttonCreateDoubleBus";
+            this.buttonCreateDoubleBus.Size = new System.Drawing.Size(140, 23);
+            this.buttonCreateDoubleBus.TabIndex = 6;
+            this.buttonCreateDoubleBus.Text = "Двухэтажный автобус";
+            this.buttonCreateDoubleBus.UseVisualStyleBackColor = true;
+            this.buttonCreateDoubleBus.Click += new System.EventHandler(this.buttonCreateDoubleBus_Click);
+            // 
             // FormBus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(809, 504);
+            this.Controls.Add(this.buttonCreateDoubleBus);
             this.Controls.Add(this.buttonRight);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonLeft);
@@ -126,6 +138,7 @@
         private System.Windows.Forms.Button buttonLeft;
         private System.Windows.Forms.Button buttonDown;
         private System.Windows.Forms.Button buttonRight;
+        private System.Windows.Forms.Button buttonCreateDoubleBus;
     }
 }
 
