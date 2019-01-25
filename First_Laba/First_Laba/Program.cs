@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 namespace First_Laba
 {
+    public delegate void busDelegate(ITransport bus);
+
     static class Program
     {
         /// <summary>

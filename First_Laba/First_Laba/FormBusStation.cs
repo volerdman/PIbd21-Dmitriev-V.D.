@@ -18,6 +18,11 @@ namespace First_Laba
         MultiLevelBusStation station;
 
         /// <summary>
+        /// Форма для добавления
+        /// </summary>
+        FormBusConfig form;
+
+        /// <summary>
         /// Количество уровней-парковок
         /// </summary>
         private const int countLevel = 5;
@@ -53,48 +58,27 @@ namespace First_Laba
         /// <param name="e"></param>
         private void buttonSetBus_Click(object sender, EventArgs e)
         {
-            if (listBoxLevels.SelectedIndex > -1)
-            {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    var bus = new Bus(100, 1000, dialog.Color);
-                    int place = station[listBoxLevels.SelectedIndex] + bus;
-                    if (place == -1)
-                    {
-                        MessageBox.Show("Нет свободных мест", "Ошибка",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    Draw();
-                }
-            }
+            form = new FormBusConfig();
+            form.AddEvent(AddBus);
+            form.Show();
         }
 
         /// <summary>
-        /// Обработка нажатия кнопки "Припарковать двухэтажный автобус"
+        /// Метод добавления машины
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonSetDoubleBus_Click(object sender, EventArgs e)
+        /// <param name="bus"></param>
+        private void AddBus(ITransport bus)
         {
-            if (listBoxLevels.SelectedIndex > -1)
+            if (bus != null && listBoxLevels.SelectedIndex > -1)
             {
-                ColorDialog dialog = new ColorDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
+                int place = station[listBoxLevels.SelectedIndex] + bus;
+                if (place > -1)
                 {
-                    ColorDialog dialogDop = new ColorDialog();
-                    if (dialogDop.ShowDialog() == DialogResult.OK)
-                    {
-                        var bus = new DoubleBus(100, 1000, dialog.Color, dialogDop.Color,
-                        true, true);
-                        int place = station[listBoxLevels.SelectedIndex] + bus;
-                        if (place == -1)
-                        {
-                            MessageBox.Show("Нет свободных мест", "Ошибка",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        Draw();
-                    }
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Автобус не удалось поставить");
                 }
             }
         }
