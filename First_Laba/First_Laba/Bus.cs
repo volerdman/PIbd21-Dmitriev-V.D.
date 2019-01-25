@@ -32,6 +32,17 @@ namespace First_Laba
             MainColor = mainColor;
         }
 
+        public Bus(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
+        }
+
         /// <summary>
         /// Изменение направления пермещения
         /// </summary>
@@ -103,6 +114,11 @@ namespace First_Laba
             g.FillRectangle(black, _startPosX + 25, _startPosY + 27, 10, 10);   
             g.FillRectangle(black, _startPosX + 45, _startPosY + 27, 10, 10);
             g.FillRectangle(black, _startPosX + 68, _startPosY + 25, 12, 12);
+        }
+
+        public override string ToString()
+        {
+            return MaxSpeed + ";" + Weight + ";" + MainColor.Name;
         }
     }
 }
