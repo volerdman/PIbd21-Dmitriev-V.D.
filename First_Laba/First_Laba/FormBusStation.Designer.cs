@@ -32,10 +32,11 @@
             this.buttonSetBus = new System.Windows.Forms.Button();
             this.buttonSetDoubleBus = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonTakeBus = new System.Windows.Forms.Button();
             this.pictureBoxTakeBus = new System.Windows.Forms.PictureBox();
+            this.buttonTakeBus = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.listBoxLevels = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStation)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeBus)).BeginInit();
@@ -52,7 +53,7 @@
             // 
             // buttonSetBus
             // 
-            this.buttonSetBus.Location = new System.Drawing.Point(752, 22);
+            this.buttonSetBus.Location = new System.Drawing.Point(752, 152);
             this.buttonSetBus.Name = "buttonSetBus";
             this.buttonSetBus.Size = new System.Drawing.Size(110, 46);
             this.buttonSetBus.TabIndex = 1;
@@ -62,7 +63,7 @@
             // 
             // buttonSetDoubleBus
             // 
-            this.buttonSetDoubleBus.Location = new System.Drawing.Point(752, 86);
+            this.buttonSetDoubleBus.Location = new System.Drawing.Point(752, 204);
             this.buttonSetDoubleBus.Name = "buttonSetDoubleBus";
             this.buttonSetDoubleBus.Size = new System.Drawing.Size(110, 51);
             this.buttonSetDoubleBus.TabIndex = 2;
@@ -83,21 +84,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Забрать автобус:";
             // 
-            // maskedTextBox
+            // pictureBoxTakeBus
             // 
-            this.maskedTextBox.Location = new System.Drawing.Point(54, 29);
-            this.maskedTextBox.Name = "maskedTextBox";
-            this.maskedTextBox.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Место:";
+            this.pictureBoxTakeBus.BackColor = System.Drawing.Color.Gray;
+            this.pictureBoxTakeBus.Location = new System.Drawing.Point(9, 83);
+            this.pictureBoxTakeBus.Name = "pictureBoxTakeBus";
+            this.pictureBoxTakeBus.Size = new System.Drawing.Size(153, 156);
+            this.pictureBoxTakeBus.TabIndex = 3;
+            this.pictureBoxTakeBus.TabStop = false;
             // 
             // buttonTakeBus
             // 
@@ -109,20 +103,37 @@
             this.buttonTakeBus.UseVisualStyleBackColor = true;
             this.buttonTakeBus.Click += new System.EventHandler(this.buttonTakeBus_Click);
             // 
-            // pictureBoxTakeBus
+            // label1
             // 
-            this.pictureBoxTakeBus.BackColor = System.Drawing.Color.Gray;
-            this.pictureBoxTakeBus.Location = new System.Drawing.Point(9, 83);
-            this.pictureBoxTakeBus.Name = "pictureBoxTakeBus";
-            this.pictureBoxTakeBus.Size = new System.Drawing.Size(153, 156);
-            this.pictureBoxTakeBus.TabIndex = 3;
-            this.pictureBoxTakeBus.TabStop = false;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Место:";
+            // 
+            // maskedTextBox
+            // 
+            this.maskedTextBox.Location = new System.Drawing.Point(54, 29);
+            this.maskedTextBox.Name = "maskedTextBox";
+            this.maskedTextBox.Size = new System.Drawing.Size(100, 20);
+            this.maskedTextBox.TabIndex = 0;
+            // 
+            // listBoxLevels
+            // 
+            this.listBoxLevels.FormattingEnabled = true;
+            this.listBoxLevels.Location = new System.Drawing.Point(752, 21);
+            this.listBoxLevels.Name = "listBoxLevels";
+            this.listBoxLevels.Size = new System.Drawing.Size(137, 108);
+            this.listBoxLevels.TabIndex = 4;
+            this.listBoxLevels.SelectedIndexChanged += new System.EventHandler(this.listBoxLevels_SelectedIndexChanged);
             // 
             // FormBusStation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(895, 533);
+            this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonSetDoubleBus);
             this.Controls.Add(this.buttonSetBus);
@@ -147,5 +158,6 @@
         private System.Windows.Forms.Button buttonTakeBus;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox;
+        private System.Windows.Forms.ListBox listBoxLevels;
     }
 }
